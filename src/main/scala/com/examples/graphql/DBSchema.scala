@@ -1,6 +1,6 @@
 package com.examples.graphql
 
-import com.examples.graphql.models.Link
+import com.examples.graphql.models.{Customer}
 import slick.jdbc.H2Profile.api._
 
 import scala.concurrent.Await
@@ -15,27 +15,27 @@ object DBSchema {
     new DAO(db)
   }
 
-  class LinksTable(tag: Tag) extends Table[Link](tag, "LINKS") {
+  class CustomerTable(tag: Tag) extends Table[Customer](tag, "Customer") {
 
     def id = column[Int]("ID", O.PrimaryKey, O.AutoInc)
 
-    def url = column[String]("URL")
+    def name = column[String]("NAME")
 
-    def description = column[String]("DESCRIPTION")
+    def address = column[String]("ADDRESS")
 
-    def * = (id, url, description).mapTo[Link]
+    def * = (id, name, address).mapTo[Customer]
 
   }
 
-  val Links = TableQuery[LinksTable]
+  val Customers = TableQuery[CustomerTable]
 
   val databaseSetup = DBIO.seq(
-    Links.schema.create,
+    Customers.schema.create,
 
-    Links forceInsertAll Seq(
-      Link(1, "http://howtographql.com", "Awesome community driven GraphQL tutorial"),
-      Link(2, "http://graphql.org", "Official GraphQL web page"),
-      Link(3, "https://facebook.github.io/graphql/", "GraphQL specification")
+    Customers forceInsertAll Seq(
+      Customer(1, "Akhil", "STL"),
+      Customer(2, "Jon", "Wall"),
+      Customer(3, "Rob", "Brige")
     )
   )
 

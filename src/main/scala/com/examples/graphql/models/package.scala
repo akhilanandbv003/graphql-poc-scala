@@ -1,6 +1,7 @@
 package com.examples.graphql
 
 package object models {
-  case class Link(id: Int, url: String, description: String)
+  case class Customer(id: Int, name: String, address: String)
+
 
 }
