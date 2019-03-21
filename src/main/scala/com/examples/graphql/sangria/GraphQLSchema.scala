@@ -11,7 +11,7 @@ object GraphQLSchema {
     fields[Unit, Customer](
       Field("id", IntType, resolve = _.value.id),
       Field("name", StringType, resolve = _.value.name),
-      Field("description", StringType, resolve = _.value.address)
+      Field("address", StringType, resolve = _.value.address)
 
     )
   )

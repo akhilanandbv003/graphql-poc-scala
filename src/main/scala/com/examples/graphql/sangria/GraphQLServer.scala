@@ -55,7 +55,7 @@ object GraphQLServer {
     Executor.execute(
       GraphQLSchema.SchemaDefinition, // 10
       query, // 11
-      MyContext(), // 12
+      MyContext(dao), // 12
       variables = vars, // 13
       operationName = operation // 14
     ).map(OK -> _)

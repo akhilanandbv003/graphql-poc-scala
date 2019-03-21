@@ -1,12 +1,30 @@
 package com.examples.graphql
 
 import com.examples.graphql.config.BaseConfig
+import com.examples.graphql.models.Customer
+import org.json4s._
+import org.json4s.native.JsonMethods.parse
 import scalikejdbc.{AutoSession, ConnectionPool, DB, DBSession, SQL}
 
+import scala.collection.immutable
 
-class DAO() {
+class DAO(session: DBSession) {
   //    def allCustomers = db.run(Customers.result)
-  def allCustomerPostgres = CanonicalGenericDao.queryDB("select * customer")
+  def allCustomerPostgres = {
+    val data: immutable.Seq[Map[String, Any]] = CanonicalGenericDao.queryDB("select * from customer")
+    //    implicit val formats = DefaultFormats
+    //    parse(data).extract[Customer]
+    import org.json4s.jackson.Serialization
+
+    implicit val formats = org.json4s.DefaultFormats
+
+    val jsonData = Serialization.write(data)
+    parse(jsonData).extract[Seq[Customer]]
+
+
+
+
+  }
 }
 
 
@@ -29,6 +47,7 @@ object CanonicalGenericDao extends GenericDao {
     ConnectionPool.singleton(BaseConfig.postgresCiConnectionString, BaseConfig.postgresCiUser, BaseConfig.postgresCiPassword)
 
     SQL(scala.io.Source.fromFile("init.sql").mkString).execute.apply()
+    session
   }
 
 }

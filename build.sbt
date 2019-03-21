@@ -19,6 +19,9 @@ libraryDependencies ++= Seq(
 //  "com.typesafe.slick" %% "slick-hikaricp" % "3.2.1",
   "org.slf4j" % "slf4j-nop" % "1.6.6",
 //  "com.h2database" % "h2" % "1.4.196",
+  "org.json4s" %% "json4s-jackson" % "3.5.3",
+  "org.json4s" %% "json4s-native" % "3.5.0",
+  "org.json4s" %% "json4s-ext" % "3.5.0",
 
   "org.scalatest" %% "scalatest" % "3.0.4" % Test
 )
