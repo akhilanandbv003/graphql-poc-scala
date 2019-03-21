@@ -19,7 +19,8 @@ object GraphQLSchema {
   val QueryType = ObjectType(
     "Query",
     fields[MyContext, Unit](
-      Field("allCustomers", ListType(CustomerType), resolve = c => c.ctx.dao.allCustomers)
+      Field("allCustomers", ListType(CustomerType), resolve = c => c.ctx.dao.allCustomerPostgres)
+
     )
   )
   val SchemaDefinition = Schema(QueryType)

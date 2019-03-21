@@ -17,7 +17,8 @@ import sangria.marshalling.sprayJson._
 
 object GraphQLServer {
   // 1
-  private val dao = DBSchema.createDatabase
+  private val dao = DBSchema.startUpDb
+
 
   // 2
   def endpoint(requestJSON: JsValue)(implicit ec: ExecutionContext): Route = {
@@ -54,7 +55,7 @@ object GraphQLServer {
     Executor.execute(
       GraphQLSchema.SchemaDefinition, // 10
       query, // 11
-      MyContext(dao), // 12
+      MyContext(), // 12
       variables = vars, // 13
       operationName = operation // 14
     ).map(OK -> _)
